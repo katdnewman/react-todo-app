@@ -1,23 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import UserBar from "./UserBar";
+import TodoList from "./TodoList";
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+  const todos = [
+    {
+      title: "Laundry",
+      description: "wash and dry",
+      dateCreated: "9-28-21",
+      complete: "complete",
+      dateCompleted: "9-28-21"
+    },
+    {
+      title: "Dishes",
+      description: "wash and dry",
+      dateCreated: "9-28-21",
+      complete: "complete",
+      dateCompleted: "9-28-21"
+    }
+  ]
+  return  (
+    <div>
+      <UserBar />
+    <br/><br/><hr/><br/> 
+      {/* <CreateTodo user="Paul" /> */}
+      <TodoList todos={todos} />
     </div>
   );
 }
