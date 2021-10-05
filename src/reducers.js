@@ -10,23 +10,23 @@ function userReducer (state, action) {
     }
 }
 
-//   function postsReducer (state, action) {
-//     switch (action.type) {
-//         case 'CREATE_POST':
-//           const newPost = { 
-//               title: action.title,
-//               content: action.content, 
-//               author: action.author 
-//             }
-//             return [ newPost, ...state ]
-//         default:
-//            return state;
-//     }
-//   }
+  function todosReducer (state, action) {
+    switch (action.type) {
+        case 'CREATE_TODO':
+          const newTodo = { 
+              title: action.title,
+              description: action.description, 
+              author: action.author 
+            }
+            return [ newTodo, ...state ]
+        default:
+           return state;
+    }
+  }
 
   export default function appReducer (state, action) {
     return {
         user: userReducer(state.user, action),
-        // posts: postsReducer(state.posts, action)
+        todos: todosReducer(state.todos, action)
     }
 }

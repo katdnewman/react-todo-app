@@ -9,7 +9,8 @@ export default function UserBar({user, dispatchUser}) {
     if (user) {
         return (
             <div>
-                <CreateTodo />
+                {/* // user={user} dispatch={dispatch} from App.js */}
+                <CreateTodo user={user} dispatchUser={dispatchUser}/>
                 return <Logout user={user} dispatchUser={dispatchUser} />
             </div>
         )
