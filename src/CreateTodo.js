@@ -1,7 +1,6 @@
 import React, {useState}  from 'react'
 
-export default function CreateTodo ({user, dispatchUser}) {
-    // const now = new Date().toString(); //use for the hook later
+export default function CreateTodo ({user, dispatchApp}) {
 
     const [ title, setTitle ] = useState('')
     const [ description, setDesc ] = useState('')
@@ -11,7 +10,7 @@ export default function CreateTodo ({user, dispatchUser}) {
     function handleDesc (evt) { setDesc(evt.target.value) }
 
      return (
-        <form onSubmit={e => {e.preventDefault(); dispatchUser({type: "CREATE_TODO", title, description, author: user});} }>
+        <form onSubmit={e => {e.preventDefault(); dispatchApp({type: "CREATE_TODO", title, description, author: user});} }>
              
              <div><b>Create To do</b></div>
 

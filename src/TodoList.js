@@ -1,12 +1,12 @@
 import React from 'react'
 import Todo from './Todo'
 
-export default function TodoList ({todos = []}) {
+export default function TodoList ({dispatchApp, todos = []}) {
  return (
      
   <div>
     <h3><b>To do list</b></h3>
-   {todos.map((p, i) => <Todo {...p} key={'todo-id-' + i} />)}
+   {todos.map((p, i) => <Todo {...p} dispatchApp={dispatchApp} key={'todo-id-' + i} />)}
   </div>
   )
 }

@@ -9,15 +9,15 @@ function App() {
       title: "Laundry",
       description: "wash and dry",
       dateCreated: "9-28-21",
-      complete: "complete",
-      dateCompleted: "9-28-21"
+      complete: false,
+      dateCompleted: ""
     },
     {
       title: "Dishes",
       description: "wash and dry",
       dateCreated: "9-28-21",
-      complete: "complete",
-      dateCompleted: "9-28-21"
+      complete: false,
+      dateCompleted: ""
     }
   ]
 
@@ -27,10 +27,10 @@ function App() {
 
   return  (
     <div>
-      <UserBar user={user} dispatchUser={dispatch} />
+      <UserBar user={user} dispatchApp={dispatch} />
     <br/><br/><hr/><br/> 
-      {/* <CreateTodo user="Paul" /> */}
-      <TodoList todos={todos} />
+
+      <TodoList todos={todos} dispatchApp={dispatch} />
     </div>
   );
 }

@@ -4,21 +4,21 @@ import Login from './Login'
 import Logout from './Logout'
 import Register from './Register'
 
-export default function UserBar({user, dispatchUser}) {
+export default function UserBar({user, dispatchApp}) {
 
     if (user) {
         return (
             <div>
                 {/* // user={user} dispatch={dispatch} from App.js */}
-                <CreateTodo user={user} dispatchUser={dispatchUser}/>
-                return <Logout user={user} dispatchUser={dispatchUser} />
+                <CreateTodo user={user} dispatchApp={dispatchApp}/>
+                return <Logout user={user} dispatchApp={dispatchApp} />
             </div>
         )
     } else {
         return (
             <>
-            <Login dispatchUser={dispatchUser} />
-            <Register dispatchUser={dispatchUser} />
+            <Login dispatchApp={dispatchApp} />
+            <Register dispatchApp={dispatchApp} />
             </>
         )
     }

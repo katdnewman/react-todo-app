@@ -1,4 +1,4 @@
-function userReducer (state, action) {
+function userReducer (user, action) {
     switch (action.type) {
         case 'LOGIN':
         case 'REGISTER':
@@ -6,27 +6,51 @@ function userReducer (state, action) {
         case 'LOGOUT':
             return ''
         default:
-            return state;
+            return user;
     }
 }
 
-  function todosReducer (state, action) {
+  function todosReducer (todos, action) {
     switch (action.type) {
         case 'CREATE_TODO':
-          const newTodo = { 
-              title: action.title,
-              description: action.description, 
-              author: action.author 
+            const newTodo = { 
+                title: action.title,
+                description: action.description, 
+                author: action.author 
             }
-            return [ newTodo, ...state ]
+            return [ newTodo, ...todos ] //complete list of todos with new one on top
+        case 'TOGGLE_TODO':
+            return todos.map( (todo) => 
+                {
+                    if (todo.title === action.title)
+                    {
+                        // If currently completed then (checked to unchecked) toggle will uncomplete
+                        if(todo.dateCompleted)
+                        {
+                            return { ...todo, dateCompleted: "", completed: false };
+                        }
+                        // Else if is not completed, so (unchecked to checked) toggle completes
+                        else
+                        {
+                            const now = new Date().toString();
+                            return { ...todo, dateCompleted: now, completed: true };
+                        }
+
+                    }
+                    else
+                    {
+                        return todo;
+                    }
+                }
+            );
         default:
-           return state;
+           return todos;
     }
   }
 
-  export default function appReducer (state, action) {
+  export default function appReducer (appState, action) {
     return {
-        user: userReducer(state.user, action),
-        todos: todosReducer(state.todos, action)
+        user: userReducer(appState.user, action),
+        todos: todosReducer(appState.todos, action)
     }
 }
