@@ -1,8 +1,10 @@
 import UserBar from "./UserBar";
 import TodoList from "./TodoList";
+import {useReducer} from 'react';
+import appReducer from './reducers';
 
 function App() {
-  const todos = [
+  const initialTodos = [
     {
       title: "Laundry",
       description: "wash and dry",
@@ -18,9 +20,14 @@ function App() {
       dateCompleted: "9-28-21"
     }
   ]
+
+  const [ state, dispatch ] = useReducer(appReducer, { user: '', todos: initialTodos })
+
+  const {user, todos} = state;
+
   return  (
     <div>
-      <UserBar />
+      <UserBar user={user} dispatchUser={dispatch} />
     <br/><br/><hr/><br/> 
       {/* <CreateTodo user="Paul" /> */}
       <TodoList todos={todos} />
