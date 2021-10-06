@@ -6,6 +6,10 @@ export default function Todo ({ dispatchApp, title, description, dateCreated, co
         dispatchApp({type:"TOGGLE_TODO", title: title})
     }
 
+    function handleDeleteBtn(e){
+        dispatchApp({type:"DELETE_TODO", title: title})
+    }
+
     return (
          <div>
             
@@ -17,7 +21,8 @@ export default function Todo ({ dispatchApp, title, description, dateCreated, co
                 <input type="checkbox" value={complete} onChange={handleCompleteBox} id="completed-todo" name="completed-todo" />
             </div>
             <div>Date Completed: {dateCompleted}</div>
-            <br />
+            <button onClick={e => {handleDeleteBtn()}}>Delete</button>
+            <br /><br />
         </div>
         )
 }

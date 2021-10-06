@@ -16,6 +16,7 @@ function userReducer (user, action) {
             const newTodo = { 
                 title: action.title,
                 description: action.description, 
+                dateCreated: new Date().toString(),
                 author: action.author 
             }
             return [ newTodo, ...todos ] //complete list of todos with new one on top
@@ -43,6 +44,8 @@ function userReducer (user, action) {
                     }
                 }
             );
+        case 'DELETE_TODO':
+            return todos.filter((todo)=>todo.title !== action.title)
         default:
            return todos;
     }
