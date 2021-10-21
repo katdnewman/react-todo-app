@@ -1,6 +1,10 @@
 import React, {useState} from 'react'
+import { StateContext } from './Contexts';
+import { useContext } from 'react/cjs/react.development';
 
-export default function Register({ dispatchApp }) {
+export default function Register() {
+
+    const {dispatch} = useContext(StateContext)
 
     const [ formData, setFormData ] = useState({
         username: "",
@@ -9,7 +13,7 @@ export default function Register({ dispatchApp }) {
     })
 
     return (
-        <form onSubmit={e => {e.preventDefault(); dispatchApp({type:"REGISTER", username:formData.username}); }}>
+        <form onSubmit={e => {e.preventDefault(); dispatch({type:"REGISTER", username:formData.username}); }}>
         <label htmlFor="register-username">Username:</label>
         <input type="text" value={formData.username} onChange={e => setFormData({...formData, username: e.target.value})}  name="register-username" id="register-username" />
 

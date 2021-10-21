@@ -2,6 +2,8 @@ import UserBar from "./UserBar";
 import TodoList from "./TodoList";
 import {useReducer} from 'react';
 import appReducer from './reducers';
+import { StateContext } from './Contexts'
+
 
 function App() {
   const initialTodos = [
@@ -27,10 +29,11 @@ function App() {
 
   return  (
     <div>
-      <UserBar user={user} dispatchApp={dispatch} />
-    <br/><br/><hr/><br/> 
-
-      <TodoList todos={todos} dispatchApp={dispatch} />
+      <StateContext.Provider value={{state: state, dispatch: dispatch}}>
+        <UserBar user={user} dispatchApp={dispatch} />
+        <br/><br/><hr/><br/> 
+        <TodoList todos={todos} dispatchApp={dispatch} />
+      </StateContext.Provider>
     </div>
   );
 }
