@@ -1,38 +1,59 @@
+import React, {useReducer, useEffect} from 'react';
+import { useResource } from 'react-request-hook';
 import UserBar from "./UserBar";
 import TodoList from "./TodoList";
-import {useReducer} from 'react';
 import appReducer from './reducers';
 import { StateContext } from './Contexts'
 
 
+
 function App() {
-  const initialTodos = [
-    {
-      title: "Laundry",
-      description: "wash and dry",
-      dateCreated: "9-28-21",
-      complete: false,
-      dateCompleted: ""
-    },
-    {
-      title: "Dishes",
-      description: "wash and dry",
-      dateCreated: "9-28-21",
-      complete: false,
-      dateCompleted: ""
+  // const initialTodos = [
+  //   {
+  //     title: "Laundry",
+  //     description: "wash and dry",
+  //     dateCreated: "9-28-21",
+  //     complete: false,
+  //     dateCompleted: ""
+  //   },
+  //   {
+  //     title: "Dishes",
+  //     description: "wash and dry",
+  //     dateCreated: "9-28-21",
+  //     complete: false,
+  //     dateCompleted: ""
+  //   }
+  // ]
+
+  const [ todos, getTodos ] = useResource(() => ({
+    url: 'http://localhost:4000/todos',
+    method: 'get'
+  }))
+
+
+
+  const [ state, dispatch ] = useReducer(appReducer, { user: '', todos: [] })
+
+  useEffect(getTodos, [])
+  useEffect(() => {
+    fetch(todos.url)
+      .then( result => result.json() )
+      .then( newTodos => todos.data = newTodos );
+    if (todos && todos.data) {
+        dispatch({ type: 'FETCH_TODOS', todos: todos.data })
     }
-  ]
+}, [todos])
 
-  const [ state, dispatch ] = useReducer(appReducer, { user: '', todos: initialTodos })
-
-  const {user, todos} = state;
+  // const {user} = state; //using in UserBar
 
   return  (
     <div>
       <StateContext.Provider value={{state: state, dispatch: dispatch}}>
-        <UserBar user={user} dispatchApp={dispatch} />
+        <UserBar/>
         <br/><br/><hr/><br/> 
-        <TodoList todos={todos} dispatchApp={dispatch} />
+        {/* test */}
+        {/* {user && <CreateTodo /> } */}
+        <TodoList/>
       </StateContext.Provider>
     </div>
   );

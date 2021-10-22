@@ -10,11 +10,12 @@ export default function UserBar() {
     const {state} = useContext(StateContext)
     const {user} = state;
 
+    //TODO state.test?
     if (user) {
         return (
             <div>
-                {/* // user={user} dispatch={dispatch} from App.js */}
-                <CreateTodo/>
+
+                {user && <CreateTodo /> }
                 return <Logout/>
             </div>
         )
