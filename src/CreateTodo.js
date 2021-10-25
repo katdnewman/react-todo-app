@@ -1,5 +1,6 @@
 import React, {useState, useContext} from 'react'
 import { StateContext } from './Contexts'
+import { useResource } from 'react-request-hook'
 
 export default function CreateTodo () {
 
@@ -9,12 +10,25 @@ export default function CreateTodo () {
     const {state, dispatch} = useContext(StateContext)
     const {user} = state;
 
+    //network request. value from server response stored in todo
+    const [todo , createTodo ] = useResource(({ title, description, author }) => ({
+        url: '/todos',
+        method: 'post',
+        data: { title, description, author }
+    }))
+
+    function handleCreate () {
+        createTodo({ title, description, author: user })
+        dispatch({ type: 'CREATE_TODO', title, description, author: user })
+    }
+
+
     function handleTitle (evt) { setTitle(evt.target.value) }
 
     function handleDesc (evt) { setDesc(evt.target.value) }
 
      return (
-        <form onSubmit={e => {e.preventDefault(); dispatch({type: "CREATE_TODO", title, description, author: user});} }>
+        <form onSubmit={e => {e.preventDefault(); handleCreate();} }>
              
              <div><b>Create To do</b></div>
 

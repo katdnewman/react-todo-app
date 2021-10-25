@@ -26,7 +26,7 @@ function App() {
   // ]
 
   const [ todos, getTodos ] = useResource(() => ({
-    url: 'http://localhost:4000/todos',
+    url: '/todos',
     method: 'get'
   }))
 
@@ -35,10 +35,8 @@ function App() {
   const [ state, dispatch ] = useReducer(appReducer, { user: '', todos: [] })
 
   useEffect(getTodos, [])
+  
   useEffect(() => {
-    fetch(todos.url)
-      .then( result => result.json() )
-      .then( newTodos => todos.data = newTodos );
     if (todos && todos.data) {
         dispatch({ type: 'FETCH_TODOS', todos: todos.data })
     }

@@ -14,10 +14,12 @@ function userReducer (user, action) {
     switch (action.type) {
         case 'CREATE_TODO':
             const newTodo = { 
+                id: action.id,
                 title: action.title,
                 description: action.description, 
                 dateCreated: new Date().toString(),
-                author: action.author 
+                author: action.author, 
+                complete: false 
             }
             return [ newTodo, ...todos ] //complete list of todos with new one on top
         case 'TOGGLE_TODO':
