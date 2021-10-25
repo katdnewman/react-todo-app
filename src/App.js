@@ -44,6 +44,8 @@ function App() {
 
   // const {user} = state; //using in UserBar
 
+  const { data, isLoading } = todos;
+  
   return  (
     <div>
       <StateContext.Provider value={{state: state, dispatch: dispatch}}>
@@ -51,7 +53,9 @@ function App() {
         <br/><br/><hr/><br/> 
         {/* test */}
         {/* {user && <CreateTodo /> } */}
-        <TodoList/>
+
+        {/* <TodoList/> */}
+        {isLoading && 'Todos loading...'} <TodoList />
       </StateContext.Provider>
     </div>
   );

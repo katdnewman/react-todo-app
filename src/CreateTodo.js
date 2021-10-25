@@ -1,4 +1,4 @@
-import React, {useState, useContext} from 'react'
+import React, {useState, useContext, useEffect} from 'react'
 import { StateContext } from './Contexts'
 import { useResource } from 'react-request-hook'
 
@@ -19,9 +19,17 @@ export default function CreateTodo () {
 
     function handleCreate () {
         createTodo({ title, description, author: user })
-        dispatch({ type: 'CREATE_TODO', title, description, author: user })
+        // dispatch({ type: 'CREATE_TODO', title, description, author: user })
+        
     }
 
+    useEffect(() => {
+        if (todo && todo.data) {
+            dispatch({ type: 'CREATE_POST', title: todo.data.title, content: todo.data.description, id: todo.data.id, author: user })
+            console.log(todo.data)
+            // navigation.navigate('/post/${todo.data.id}')
+        }
+    }, [todo])
 
     function handleTitle (evt) { setTitle(evt.target.value) }
 
