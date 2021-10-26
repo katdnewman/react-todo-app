@@ -25,18 +25,19 @@ function userReducer (user, action) {
         case 'TOGGLE_TODO':
             return todos.map( (todo) => 
                 {
+                    console.log("toggle reducer")
                     if (todo.title === action.title)
                     {
                         // If currently completed then (checked to unchecked) toggle will uncomplete
                         if(todo.dateCompleted)
                         {
-                            return { ...todo, dateCompleted: "", completed: false };
+                            return { ...todo, dateCompleted: "", complete: false };
                         }
                         // Else if is not completed, so (unchecked to checked) toggle completes
                         else
                         {
                             const now = new Date().toString();
-                            return { ...todo, dateCompleted: now, completed: true };
+                            return { ...todo, dateCompleted: now, complete: true };
                         }
 
                     }
@@ -47,7 +48,8 @@ function userReducer (user, action) {
                 }
             );
         case 'DELETE_TODO':
-            return todos.filter((todo)=>todo.title !== action.title)
+            return todos.filter((p,i) => i !== action.todoId)
+            // return todos.filter((todo)=>todo.todoId !== action.todoId)
         case 'FETCH_TODOS':
             return action.todos
         default:

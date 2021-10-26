@@ -35,6 +35,12 @@
       "description": "a2",
       "author": "s",
       "id": 5
+    },
+    {
+      "title": "3",
+      "description": "3",
+      "author": "w",
+      "id": 6
     }
   ],
   "users": [
@@ -42,6 +48,11 @@
       "id": 1,
       "username": "testuser",
       "password": "badpassword"
+    },
+    {
+      "username": "w",
+      "password": "w",
+      "id": 2
     }
   ]
 }

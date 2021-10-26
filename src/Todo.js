@@ -1,14 +1,34 @@
-import React from 'react'
+import React, {useContext, useEffect} from 'react'
+import { StateContext } from './Contexts'
+import { useResource } from 'react-request-hook'
 
-export default function Todo ({ dispatchApp, title, description, dateCreated, complete, dateCompleted}) {
+export default function Todo ({ title, description, dateCreated, complete, dateCompleted, todoId}) {
+
+    const {dispatch} = useContext(StateContext)
+
+    //network request. value from server response stored in todo
+    const [todo , deleteTodo ] = useResource(({ todoId }) => ({
+        url: '/todos/:todoId',
+        method: 'delete',
+        data: { todoId}
+    }))
 
     function handleCompleteBox (evt) { 
-        dispatchApp({type:"TOGGLE_TODO", title: title})
+        dispatch({type:"TOGGLE_TODO", title: title, todoId:todoId})
     }
 
     function handleDeleteBtn(e){
-        dispatchApp({type:"DELETE_TODO", title: title})
+        // dispatch({type:"DELETE_TODO", title: title})
+        deleteTodo({ todoId })
     }
+
+    useEffect(() => {
+        if (todo && todo.data) {
+            dispatch({ type: 'DELETE_TODO', id: todo.data.id})
+            console.log(todo.data)
+            // navigation.navigate('/post/${todo.data.id}')
+        }
+    }, [todo])
 
     return (
          <div>

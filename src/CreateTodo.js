@@ -25,7 +25,7 @@ export default function CreateTodo () {
 
     useEffect(() => {
         if (todo && todo.data) {
-            dispatch({ type: 'CREATE_POST', title: todo.data.title, content: todo.data.description, id: todo.data.id, author: user })
+            dispatch({ type: 'CREATE_TODO', title: todo.data.title, content: todo.data.description, id: todo.data.id, author: user })
             console.log(todo.data)
             // navigation.navigate('/post/${todo.data.id}')
         }
