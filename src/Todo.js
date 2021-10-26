@@ -12,8 +12,25 @@ export default function Todo ({ title, description, dateCreated, complete, dateC
         method: 'delete'
     }))
 
+    const [togTodo , toggleTodo ] = useResource(({ id, newDateCompleted }) => ({
+        url: '/todos/' + id,
+        method: 'put',
+        data: { title, description, id, complete: !complete, dateCreated, dateCompleted: newDateCompleted }
+    }))
+
     function handleCompleteBox (evt) { 
-        dispatch({type:"TOGGLE_TODO", title: title, id:id})
+        //dispatch({type:"TOGGLE_TODO", title: title, id:id})
+        
+        var newDateCompleted = "";
+        
+        // Completing
+        // !completed -> completed
+        if (!complete)
+        {
+            newDateCompleted = new Date().toString();
+        }
+        
+        toggleTodo({ id, newDateCompleted })
     }
 
     function handleDeleteBtn(e){
@@ -27,6 +44,13 @@ export default function Todo ({ title, description, dateCreated, complete, dateC
 
         }
     }, [todo])
+
+    useEffect(() => {
+        if (togTodo && togTodo.data) {
+            dispatch({type:"TOGGLE_TODO", id, dateCompleted: togTodo.data.dateCompleted, complete: togTodo.data.complete})
+
+        }
+    }, [togTodo])
 
     return (
          <div>
