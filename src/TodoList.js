@@ -13,7 +13,7 @@ export default function TodoList () {
   <div>
     <h3><b>To do list</b></h3>
    {/* {todos.map((p, i) => <Todo {...p} key={'todo-id-' + i} />)} */}
-   {todos.map((p, i) => <Todo {...p} title={p.title} description={p.description} key={'todo-' + i} todoId={i}/>)}
+   {todos.map((p, i) => <Todo {...p} title={p.title} description={p.description} key={'todo-' + i} todoId={p.id}/>)}
   </div>
   )
 }

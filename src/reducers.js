@@ -48,7 +48,7 @@ function userReducer (user, action) {
                 }
             );
         case 'DELETE_TODO':
-            return todos.filter((p,i) => i !== action.todoId)
+            return todos.filter((p,i) => i !== action.id)
             // return todos.filter((todo)=>todo.todoId !== action.todoId)
         case 'FETCH_TODOS':
             return action.todos
