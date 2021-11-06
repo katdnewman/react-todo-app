@@ -44,7 +44,7 @@ function App() {
 
   // const {user} = state; //using in UserBar
 
-  const { data, isLoading } = todos;
+  const { isLoading } = todos;
   
   return  (
     <div>
