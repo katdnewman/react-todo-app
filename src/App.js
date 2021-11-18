@@ -4,6 +4,9 @@ import UserBar from "./UserBar";
 import TodoList from "./TodoList";
 import appReducer from './reducers';
 import { StateContext } from './Contexts'
+import 'bootstrap/dist/css/bootstrap.min.css'
+import {Container, Row, Col} from 'react-bootstrap'
+
 
 
 
