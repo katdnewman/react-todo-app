@@ -4,17 +4,19 @@ import { useResource } from 'react-request-hook'
 
 export default function Todo ({ title, description, dateCreated, complete, dateCompleted, id}) {
 
-    const {dispatch} = useContext(StateContext)
+    const {state, dispatch} = useContext(StateContext)
 
     //network request. value from server response stored in todo
     const [todo , deleteTodo ] = useResource(({ id }) => ({
-        url: '/todos/' + id,
+        url: '/todo/' + id,
+        headers: {"Authorization": `${state.user.access_token}`},
         method: 'delete'
     }))
 
     const [togTodo , toggleTodo ] = useResource(({ id, newDateCompleted }) => ({
-        url: '/todos/' + id,
+        url: '/todo/' + id,
         method: 'put',
+        headers: {"Authorization": `${state.user.access_token}`},
         data: { title, description, id, complete: !complete, dateCreated, dateCompleted: newDateCompleted }
     }))
 

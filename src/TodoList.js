@@ -1,7 +1,6 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Todo from './Todo'
 import { StateContext } from './Contexts'
-import { useContext } from 'react/cjs/react.development'
 
 export default function TodoList () {
 
@@ -12,8 +11,7 @@ export default function TodoList () {
      
   <div>
     <h3><b>To do list</b></h3>
-   {/* {todos.map((p, i) => <Todo {...p} key={'todo-id-' + i} />)} */}
-   {todos.map((p, i) => <Todo {...p} title={p.title} description={p.description} key={'todo-' + i} todoId={p.id}/>)}
+   {todos.map((p, i) => <Todo {...p} title={p.title} description={p.description} key={'todo-' + i} id={p._id}/>)}
   </div>
   )
 }

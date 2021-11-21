@@ -1,12 +1,19 @@
-function userReducer (user, action) {
+function userReducer (state, action) {
+    console.log(state)
     switch (action.type) {
         case 'LOGIN':
-        case 'REGISTER':
-            return action.username
-        case 'LOGOUT':
-            return ''
+        case 'REGISTER':
+            return {
+                'username': action.username,
+                'access_token': action.access_token
+            }
+        case 'LOGOUT':
+            return {
+                'username': undefined,
+                'access_token': undefined
+            }
         default:
-            return user;
+            return state;
     }
 }
 
@@ -14,19 +21,20 @@ function userReducer (user, action) {
     switch (action.type) {
         case 'CREATE_TODO':
             const newTodo = { 
-                id: action.id,
+                _id: action._id,
                 title: action.title,
                 description: action.description, 
-                dateCreated: new Date().toString(),
+                dateCreated: action.dateCreated,
                 author: action.author, 
-                complete: false 
+                complete: false,
+                completedOn: undefined
             }
             return [ newTodo, ...todos ] //complete list of todos with new one on top
         case 'TOGGLE_TODO':
             return todos.map( (todo) => 
                 {
                     console.log("toggle reducer")
-                    if (todo.id === action.id)
+                    if (todo._id === action._id)
                     {
                         return { ...todo, dateCompleted: action.dateCompleted, complete: action.complete };
                         // // If currently completed then (checked to unchecked) toggle will uncomplete
@@ -49,9 +57,11 @@ function userReducer (user, action) {
                 }
             );
         case 'DELETE_TODO':
-            return todos.filter((p,i) => i !== action.id)
+            console.log("Delete: " + action.id)
+            return todos.filter((p) => p._id !== action.id)
             // return todos.filter((todo)=>todo.todoId !== action.todoId)
         case 'FETCH_TODOS':
+            // console.log(action.todos[0])
             return action.todos
         default:
            return todos;
@@ -59,6 +69,7 @@ function userReducer (user, action) {
   }
 
   export default function appReducer (appState, action) {
+      console.log(action)
     return {
         user: userReducer(appState.user, action),
         todos: todosReducer(appState.todos, action)

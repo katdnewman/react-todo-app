@@ -1,24 +1,25 @@
 import React, {useContext, useState} from 'react'
-import CreateTodo from './CreateTodo'
-import Login from './Login'
-import Logout from './Logout'
+
 import Register from './Register'
-import { StateContext } from './Contexts'
+import Login from './Login'
+
+import { StateContext } from '../Contexts'
 import {Button} from 'react-bootstrap'
 
 export default function UserBar() {
 
-    const Logout = React.lazy(() => import('./Logout'))
-    const {state} = useContext(StateContext)
-  
-    const [showLogin, setShowLogin] = useState(false)
-    const [showRegister, setShowRegister] = useState(false)
+  const Logout = React.lazy(() => import('./Logout'))
+  const {state} = useContext(StateContext)
 
-    //TODO state.test?
-    if (state.user) {
-        return <Logout />
-    } else {
-        return (
+  const [showLogin, setShowLogin] = useState(false)
+  const [showRegister, setShowRegister] = useState(false)
+
+  
+  if (state.user.username) {
+      return <Logout />
+  } else {
+      return (
+        
             <div className="justify-content-end">
                 <Button variant="link" onClick={(e) => setShowLogin(true)}>
                     Login
@@ -29,6 +30,8 @@ export default function UserBar() {
                 </Button>
                 <Register show={showRegister} handleClose={() => setShowRegister(false)} />
             </div>
-        )
-    }
+
+      
+      )
+  }
 }

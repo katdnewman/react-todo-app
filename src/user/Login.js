@@ -1,10 +1,11 @@
-import React, {useState, useEffect} from 'react'
-import { StateContext } from './Contexts';
-import { useContext } from 'react/cjs/react.development';
+import React, {useState, useEffect, useContext} from 'react'
+
+import { StateContext } from '../Contexts';
 import { useResource } from 'react-request-hook';
+
 import { Modal, Form, Button } from 'react-bootstrap';
 
-export default function Login(show, handleClose) {
+export default function Login({show, handleClose}) {
 
     const {dispatch} = useContext(StateContext)
 
@@ -16,23 +17,25 @@ export default function Login(show, handleClose) {
     function handlePassword (evt) { setPassword(evt.target.value) }
 
     const [ user, login ] = useResource((username, password) => ({
-        url: `/login/${encodeURI(username)}/${encodeURI(password)}`,
-        method: 'get'
-    }))
-
-    useEffect(() => {
-        if (user && user.data) {
-        if (user.data.length > 0) {
-                        setLoginFailed(false)
-                        dispatch({ type: 'LOGIN', username: user.data[0].username })
-        } else {
-                        setLoginFailed(true)
-        }
-        } 
-        }, [user])
+        url: 'auth/login',
+        method: 'post',
+        data: {username, password}
+    }))
+        
 
 
-
+        useEffect(() => {
+            if (user && user.isLoading === false && (user.data || user.error)) {
+                if (user.error) {
+                    setLoginFailed(true)
+                    alert('failed')
+                } else {
+                    setLoginFailed(false)
+                    console.log(user.data)
+                    dispatch({ type: 'LOGIN', username, access_token: user.data.access_token })
+                }
+            } 
+        }, [user])
 
     return (
         <Modal show={show} onHide={handleClose}>

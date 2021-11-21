@@ -1,67 +1,60 @@
-import React, {useReducer, useEffect} from 'react';
-import { useResource } from 'react-request-hook';
-import UserBar from "./UserBar";
-import TodoList from "./TodoList";
-import appReducer from './reducers';
-import { StateContext } from './Contexts'
 import 'bootstrap/dist/css/bootstrap.min.css'
-import {Container, Row, Col} from 'react-bootstrap'
 
+
+import React, {useState, useReducer, useEffect} from 'react';
+import { mount, route } from 'navi';
+import { Router, View } from 'react-navi';
+
+import { Container } from 'react-bootstrap';
+
+import appReducer from './reducers';
+
+
+import { ThemeContext, StateContext } from './Contexts';
+import CreateTodo from './CreateTodo';
+import TodoPage from './pages/TodoPage';
+import HeaderBar from './pages/HeaderBar';
+import HomePage from './pages/HomePage';
 
 
 
 function App() {
-  // const initialTodos = [
-  //   {
-  //     title: "Laundry",
-  //     description: "wash and dry",
-  //     dateCreated: "9-28-21",
-  //     complete: false,
-  //     dateCompleted: ""
-  //   },
-  //   {
-  //     title: "Dishes",
-  //     description: "wash and dry",
-  //     dateCreated: "9-28-21",
-  //     complete: false,
-  //     dateCompleted: ""
-  //   }
-  // ]
 
-  const [ todos, getTodos ] = useResource(() => ({
-    url: '/todos',
-    method: 'get'
-  }))
+  const [ state, dispatch ] = useReducer(appReducer, { user: {}, todos: [] })
 
+  const {user} = state;
 
+//   const [ theme, setTheme ] = useState({
+//     primaryColor: 'deepskyblue',
+//     secondaryColor: 'coral'
+//  })
 
-  const [ state, dispatch ] = useReducer(appReducer, { user: '', todos: [] })
+ const routes = mount({
+  '/': route({ view: <HomePage /> }),
+  '/todo/create':route({ view: <CreateTodo /> }),
+  '/todo/:id': route(req => {
+      return { view: <TodoPage id={req.params.id} /> }
+  }),
+})
 
-  useEffect(getTodos, [])
-  
-  useEffect(() => {
-    if (todos && todos.data) {
-        dispatch({ type: 'FETCH_TODOS', todos: todos.data })
-    }
-}, [todos])
+// const routes = mount({
+//   '/': route({ view: <HomePage /> }),
+//   '/post/create':route({ view: <CreateTodo /> })
+// })
 
-  // const {user} = state; //using in UserBar
-
-  const { data, isLoading } = todos;
-  
-  return  (
+  return (
     <div>
-      <StateContext.Provider value={{state: state, dispatch: dispatch}}>
-        <UserBar/>
-        <br/><br/><hr/><br/> 
-        {/* test */}
-        {/* {user && <CreateTodo /> } */}
-
-        {/* <TodoList/> */}
-        {isLoading && 'Todos loading...'} <TodoList />
-      </StateContext.Provider>
+        <StateContext.Provider value={{state: state, dispatch: dispatch}}>
+          <Router routes={routes}>
+            <Container>
+                <HeaderBar/>
+                <hr />
+                <View />
+            </Container>
+            </Router>
+        </StateContext.Provider>
     </div>
-  );
+  )
 }
 
 export default App;
