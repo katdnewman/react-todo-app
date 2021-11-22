@@ -22,9 +22,9 @@ export default function Users () {
         <div>
             <h3><b>Users</b></h3>
             {
-            (users && !users.isLoading && users.data) ? ( users.data.userlist.map((p, i) => <Link href={'/users/' + p.userid}>{p.username}</Link>) ) : 'Loading'
+            (users && !users.isLoading && users.data) ? ( users.data.userlist.map((p, i) => <Link href={'/users/' + p.userid}>{p.username} <br></br></Link>) ) : 'Loading'
             }
-            <div><Link href="/">Go back</Link></div>
+            <div><Link href="/"><br/>Go back</Link></div>
         </div>
     )
 } 

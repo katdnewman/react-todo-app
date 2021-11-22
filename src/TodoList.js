@@ -9,7 +9,6 @@ export default function TodoList () {
  return (
      
   <div>
-    <h3><b>To do list</b></h3>
    {todos.map((p, i) => <Todo dateCreated={p.dateCreated} complete={p.complete} completedOn={p.completedOn} title={p.title} description={p.description} key={'todo-' + i} id={p._id}/>)}
   </div>
   )

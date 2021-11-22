@@ -34,7 +34,7 @@ function App() {
  const routes = mount({
   '/': route({ view: <HomePage /> }),
   '/users':route({view: <Users/>}),
-  '/users/:userid':route({view:<UserTodos/>}),
+  '/users/:userid':route(req => { return { view: <UserTodos userid={req.params.userid}/>}}),
   '/todo/create':route({ view: <CreateTodo /> }),
   '/todo/:id': route(req => {
       return { view: <TodoPage id={req.params.id} /> }

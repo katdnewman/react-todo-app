@@ -66,7 +66,7 @@ export default function Todo ({ title, description, dateCreated, complete, compl
                 <input type="checkbox" checked={complete} onChange={handleCompleteBox} id="completed-todo" name="completed-todo" />
             </div>
             <div>Date Completed: {completedOn}</div>
-            <div>iD: {id}</div>
+            {/* <div>iD: {id}</div> */}
             <button onClick={e => {handleDeleteBtn()}}>Delete</button>
             <br /><br />
         </div>
