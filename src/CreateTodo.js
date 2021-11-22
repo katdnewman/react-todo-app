@@ -9,7 +9,7 @@ export default function CreateTodo () {
     const [ title, setTitle ] = useState('')
     const [ description, setDesc ] = useState('')
 
-    const navigation = useNavigation()
+    //const navigation = useNavigation()
 
 
     const {state, dispatch} = useContext(StateContext)
@@ -35,7 +35,7 @@ export default function CreateTodo () {
             console.log(todo.data)
             dispatch({ type: 'CREATE_TODO', title: todo.data.title, content: todo.data.description, id: todo.data.id, author: user.username })
             console.log(todo.data)
-            navigation.navigate('/todo/'+todo.data._id)
+            //navigation.navigate('/todo/'+todo.data._id)
         }
     }, [todo])
 

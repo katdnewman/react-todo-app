@@ -15,6 +15,8 @@ import CreateTodo from './CreateTodo';
 import TodoPage from './pages/TodoPage';
 import HeaderBar from './pages/HeaderBar';
 import HomePage from './pages/HomePage';
+import Users from './pages/Users';
+import UserTodos from './pages/UserTodos';
 
 
 
@@ -31,6 +33,8 @@ function App() {
 
  const routes = mount({
   '/': route({ view: <HomePage /> }),
+  '/users':route({view: <Users/>}),
+  '/users/:userid':route({view:<UserTodos/>}),
   '/todo/create':route({ view: <CreateTodo /> }),
   '/todo/:id': route(req => {
       return { view: <TodoPage id={req.params.id} /> }

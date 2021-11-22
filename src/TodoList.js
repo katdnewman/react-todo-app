@@ -6,12 +6,11 @@ export default function TodoList () {
 
   const {state} = useContext(StateContext)
   const {todos} = state;
-
  return (
      
   <div>
     <h3><b>To do list</b></h3>
-   {todos.map((p, i) => <Todo {...p} title={p.title} description={p.description} key={'todo-' + i} id={p._id}/>)}
+   {todos.map((p, i) => <Todo dateCreated={p.dateCreated} complete={p.complete} completedOn={p.completedOn} title={p.title} description={p.description} key={'todo-' + i} id={p._id}/>)}
   </div>
   )
 }

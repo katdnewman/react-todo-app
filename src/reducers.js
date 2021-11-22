@@ -33,10 +33,10 @@ function userReducer (state, action) {
         case 'TOGGLE_TODO':
             return todos.map( (todo) => 
                 {
-                    console.log("toggle reducer")
-                    if (todo._id === action._id)
+                    console.log("toggle reducer " + action)
+                    if (todo._id === action.id)
                     {
-                        return { ...todo, dateCompleted: action.dateCompleted, complete: action.complete };
+                        return { ...todo, completedOn: action.completedOn, complete: action.complete };
                         // // If currently completed then (checked to unchecked) toggle will uncomplete
                         // if(todo.dateCompleted)
                         // {
@@ -61,7 +61,7 @@ function userReducer (state, action) {
             return todos.filter((p) => p._id !== action.id)
             // return todos.filter((todo)=>todo.todoId !== action.todoId)
         case 'FETCH_TODOS':
-            // console.log(action.todos[0])
+            //console.log(action.todos[2])
             return action.todos
         default:
            return todos;

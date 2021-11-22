@@ -23,7 +23,7 @@ export default function TodoPage ({ id }) {
     return (
         <div>
             {(todo && todo.data)
-                ? <Todo {...todo.data} />
+                ? <Todo dateCreated={todo.data.dateCreated} complete={todo.data.complete} completedOn={todo.data.completedOn} title={todo.data.title} description={todo.data.description} id={todo.data._id}/>
                 : 'Loading...'
             }
             <div><Link href="/">Go back</Link></div>
